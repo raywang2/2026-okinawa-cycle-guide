@@ -1,0 +1,23 @@
+{
+  "name": "2026-okinawa-cycle-guide",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "sync:mymaps": "tsx scripts/sync-mymaps.ts"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.2.5",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.20",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3"
+  }
+}
