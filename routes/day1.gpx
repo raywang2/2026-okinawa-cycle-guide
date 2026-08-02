@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="ChatGPT Okinawa Cycle Guide V2"
+ xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Day 1｜那霸 → 恩納（西海岸）</name>
+    <desc>Waypoint route seed only. Import into a cycling router and verify roads, closures, and bicycle access before riding.</desc>
+  </metadata>
+  <wpt lat="26.218000" lon="127.671300"><name>那霸／波上宮</name></wpt>
+  <wpt lat="26.245600" lon="127.687900"><name>浦添</name></wpt>
+  <wpt lat="26.281400" lon="127.732200"><name>宜野灣</name></wpt>
+  <wpt lat="26.315700" lon="127.753600"><name>北谷</name></wpt>
+  <wpt lat="26.441000" lon="127.714500"><name>殘波岬</name></wpt>
+  <wpt lat="26.497000" lon="127.850200"><name>恩納</name></wpt>
+  <rte>
+    <name>Day 1｜那霸 → 恩納（西海岸）</name>
+    <rtept lat="26.218000" lon="127.671300"><name>那霸／波上宮</name></rtept>
+    <rtept lat="26.245600" lon="127.687900"><name>浦添</name></rtept>
+    <rtept lat="26.281400" lon="127.732200"><name>宜野灣</name></rtept>
+    <rtept lat="26.315700" lon="127.753600"><name>北谷</name></rtept>
+    <rtept lat="26.441000" lon="127.714500"><name>殘波岬</name></rtept>
+    <rtept lat="26.497000" lon="127.850200"><name>恩納</name></rtept>
+  </rte>
+</gpx>
