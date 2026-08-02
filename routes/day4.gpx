@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="ChatGPT Okinawa Cycle Guide V2"
+ xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Day 4｜國頭 → 東村 → 宇流麻 → 海中道路 → 南城</name>
+    <desc>Waypoint route seed only. Import into a cycling router and verify roads, closures, and bicycle access before riding.</desc>
+  </metadata>
+  <wpt lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></wpt>
+  <wpt lat="26.633000" lon="128.157000"><name>東村</name></wpt>
+  <wpt lat="26.456000" lon="127.926000"><name>金武</name></wpt>
+  <wpt lat="26.379000" lon="127.857000"><name>宇流麻</name></wpt>
+  <wpt lat="26.327800" lon="127.927700"><name>海中道路</name></wpt>
+  <wpt lat="26.164800" lon="127.781400"><name>南城</name></wpt>
+  <rte>
+    <name>Day 4｜國頭 → 東村 → 宇流麻 → 海中道路 → 南城</name>
+    <rtept lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></rtept>
+    <rtept lat="26.633000" lon="128.157000"><name>東村</name></rtept>
+    <rtept lat="26.456000" lon="127.926000"><name>金武</name></rtept>
+    <rtept lat="26.379000" lon="127.857000"><name>宇流麻</name></rtept>
+    <rtept lat="26.327800" lon="127.927700"><name>海中道路</name></rtept>
+    <rtept lat="26.164800" lon="127.781400"><name>南城</name></rtept>
+  </rte>
+</gpx>
