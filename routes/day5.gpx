@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="ChatGPT Okinawa Cycle Guide V2"
+ xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Day 5｜南城 → 齋場御嶽／知念 → 糸滿 → 豐見城 → 那霸</name>
+    <desc>Waypoint route seed only. Import into a cycling router and verify roads, closures, and bicycle access before riding.</desc>
+  </metadata>
+  <wpt lat="26.164800" lon="127.781400"><name>南城</name></wpt>
+  <wpt lat="26.173000" lon="127.826400"><name>齋場御嶽</name></wpt>
+  <wpt lat="26.167800" lon="127.831700"><name>知念岬</name></wpt>
+  <wpt lat="26.123600" lon="127.665700"><name>糸滿</name></wpt>
+  <wpt lat="26.161300" lon="127.669500"><name>豐見城</name></wpt>
+  <wpt lat="26.212400" lon="127.680900"><name>那霸</name></wpt>
+  <rte>
+    <name>Day 5｜南城 → 齋場御嶽／知念 → 糸滿 → 豐見城 → 那霸</name>
+    <rtept lat="26.164800" lon="127.781400"><name>南城</name></rtept>
+    <rtept lat="26.173000" lon="127.826400"><name>齋場御嶽</name></rtept>
+    <rtept lat="26.167800" lon="127.831700"><name>知念岬</name></rtept>
+    <rtept lat="26.123600" lon="127.665700"><name>糸滿</name></rtept>
+    <rtept lat="26.161300" lon="127.669500"><name>豐見城</name></rtept>
+    <rtept lat="26.212400" lon="127.680900"><name>那霸</name></rtept>
+  </rte>
+</gpx>
