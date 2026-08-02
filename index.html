@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#087f8c" />
   <title>2026 沖繩單車環島冒險手冊</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/2026-okinawa-cycle-guide/src/style.css" />
 </head>
 <body>
   <header class="hero"><div class="wrap"><b>OKINAWA • CYCLING QUEST • 2026</b><h1>沖繩單車<br>環島冒險手冊</h1><p>Google My Maps → iron-camel route builder → GPX → GitHub Pages。</p><div class="chips"><span class="chip">Node + TypeScript</span><span class="chip">Vite</span><span class="chip">Leaflet</span><span class="chip">Automated GPX</span></div></div></header>
   <nav class="nav"><a href="#route">路線</a><a href="#map-section">地圖</a><a href="#poke">Poké Lids</a><a href="#notes">注意事項</a></nav>
   <main>
     <section id="route"><div class="wrap"><h2>環島路線</h2><p class="sub">正式資料會由 GitHub Actions 從 Google My Maps 匯出 KML，再透過 <code>raywang2/iron-camel-cycle-life-association-routes</code> 的 <code>scripts/build-routes.ts</code> 生成。</p><div id="route-status" class="status"></div><div id="routes" class="grid"></div></div></section>
-    <section id="map-section"><div class="wrap"><h2>互動地圖</h2><div class="card"><div id="map"></div><div class="tools" style="margin-top:12px"><a class="button" id="all-gpx" href="#">完整 GPX</a><a class="button" href="https://www.google.com/maps/d/edit?mid=1OctsgV_s5C_SEg3u5LY3jrjZcCwdugk&usp=sharing" target="_blank">Google My Maps ↗</a></div></div></div></section>
+    <section id="map-section"><div class="wrap"><h2>互動地圖</h2><div class="card"><div id="map"></div><div class="tools" style="margin-top:12px"><a class="button" href="https://www.google.com/maps/d/edit?mid=1OctsgV_s5C_SEg3u5LY3jrjZcCwdugk&usp=sharing" target="_blank">Google My Maps ↗</a></div></div></div></section>
     <section id="poke"><div class="wrap"><h2>Poké Lids × 12</h2><div class="card"><b id="poke-count">0 / 12</b><div class="bar"><i id="poke-bar"></i></div></div><div id="poke-list" class="grid g3" style="margin-top:12px"></div></div></section>
     <section id="notes"><div class="wrap"><h2>路線資料說明</h2><div class="grid g2"><div class="card"><h3>來源</h3><p>My Maps 是路線來源；GitHub Actions 會自動同步，並呼叫 iron-camel 的既有路線產生器輸出 GPX 與 routes.json。</p></div><div class="card"><h3>騎乘前</h3><p>仍需確認封路、自行車通行規則、天候、景點開放與補給狀況。網站 GPX 不取代現場道路判斷。</p></div></div></div></section>
   </main>
   <footer class="wrap">2026 Okinawa Cycling Quest • TypeScript edition</footer>
-  <script type="module" src="/src/main.ts"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/2026-okinawa-cycle-guide/assets/main.js"></script>
 </body>
 </html>
