@@ -1,0 +1,75 @@
+import L from "leaflet";
+import "./style.css";
+
+type Waypoint={name:string;lat:number;lon:number};
+type RouteGeometry={type:"LineString"|"MultiLineString";coordinates:[number,number][]|[number,number][][]};
+type RouteDay={day:number;title:string;description:string;distanceKm:number|null;generatedDistanceKm?:number|null;waypoints:Waypoint[];geojson?:RouteGeometry|null;gpxPath?:string|null};
+
+const fallback:RouteDay[]=[
+ {day:1,title:"那霸 → 恩納（西海岸）",description:"波上宮、浦添、宜野灣、北谷、殘波岬、恩納",distanceKm:75,waypoints:[{name:"那霸",lat:26.218,lon:127.6713},{name:"殘波岬",lat:26.441,lon:127.7145},{name:"恩納",lat:26.497,lon:127.8502}]},
+ {day:2,title:"恩納 → 本部 → 古宇利 → 名護",description:"名護、本部、古宇利大橋",distanceKm:98,waypoints:[{name:"恩納",lat:26.497,lon:127.8502},{name:"本部",lat:26.6944,lon:127.878},{name:"古宇利",lat:26.7068,lon:128.0162},{name:"名護",lat:26.5915,lon:127.9773}]},
+ {day:3,title:"名護 → 邊戶岬 → 國頭",description:"山原、國頭、邊戶岬",distanceKm:102,waypoints:[{name:"名護",lat:26.5915,lon:127.9773},{name:"邊戶岬",lat:26.8723,lon:128.2632},{name:"國頭",lat:26.7454,lon:128.1777}]},
+ {day:4,title:"國頭 → 東村 → 宇流麻 → 南城",description:"東岸、海中道路、南城",distanceKm:115,waypoints:[{name:"國頭",lat:26.7454,lon:128.1777},{name:"東村",lat:26.633,lon:128.157},{name:"海中道路",lat:26.3278,lon:127.9277},{name:"南城",lat:26.1648,lon:127.7814}]},
+ {day:5,title:"南城 → 知念 → 糸滿 → 那霸",description:"齋場御嶽、知念岬、糸滿、豐見城",distanceKm:80,waypoints:[{name:"南城",lat:26.1648,lon:127.7814},{name:"知念岬",lat:26.1678,lon:127.8317},{name:"糸滿",lat:26.1236,lon:127.6657},{name:"那霸",lat:26.2124,lon:127.6809}]}
+];
+
+const poke=[
+ ["那霸 ①",26.22005,127.71657],["那霸 ②",26.21641,127.68942],["浦添",26.245559,127.687899],["宜野灣",26.28139,127.732214],["北谷",26.315733,127.753613],["沖繩市",26.32766,127.803001],["宇流麻",26.436181,127.826113],["名護",26.587352,127.985744],["本部",26.691694,127.877972],["南城",26.169111,127.827083],["糸滿",26.13828,127.661336],["豐見城",26.157556,127.656121]
+] as const;
+
+async function loadRoutes():Promise<{routes:RouteDay[];generated:boolean}>{
+ try{
+   const r=await fetch(`${import.meta.env.BASE_URL}data/routes.json`,{cache:"no-store"});
+   if(!r.ok) throw new Error(String(r.status));
+   const data=await r.json() as RouteDay[];
+   if(!Array.isArray(data)||!data.length) throw new Error("empty");
+   return {routes:data.filter(x=>x.type!=="rest"),generated:true} as any;
+ }catch{return {routes:fallback,generated:false};}
+}
+
+function geometryLatLngs(route:RouteDay):L.LatLngExpression[]|L.LatLngExpression[][]{
+ const g=route.geojson;
+ if(g?.type==="LineString") return (g.coordinates as [number,number][]).map(([lon,lat])=>[lat,lon]);
+ if(g?.type==="MultiLineString") return (g.coordinates as [number,number][][]).map(line=>line.map(([lon,lat])=>[lat,lon]));
+ return route.waypoints.map(p=>[p.lat,p.lon]);
+}
+
+function gpxHref(route:RouteDay):string{
+ const name=`day-${String(route.day).padStart(2,"0")}.gpx`;
+ return `${import.meta.env.BASE_URL}routes/generated/${name}`;
+}
+
+function routeCards(routes:RouteDay[],generated:boolean){
+ const el=document.querySelector<HTMLDivElement>("#routes")!;
+ el.innerHTML=routes.map(r=>`<article class="card day"><div class="badge">D${r.day}</div><div><h3>${r.title}</h3><div class="meta"><span>${r.generatedDistanceKm??r.distanceKm??"—"} km</span><span>${generated?"My Maps → iron-camel GPX":"fallback 規劃"}</span></div><p class="muted">${r.description||r.waypoints.map(w=>w.name).join(" → ")}</p><a href="${gpxHref(r)}" download>下載 Day ${r.day} GPX</a></div></article>`).join("");
+}
+
+function renderPoke(){
+ const box=document.querySelector<HTMLDivElement>("#poke-list")!;
+ box.innerHTML=poke.map(([name,lat,lon],i)=>`<label class="poi"><input type="checkbox" data-poke="${i}"><span><b>${name}</b><br><a target="_blank" href="https://www.google.com/maps?q=${lat},${lon}">地圖 ↗</a></span></label>`).join("");
+ const update=()=>{const n=[...document.querySelectorAll<HTMLInputElement>("[data-poke]")].filter(x=>x.checked).length;document.querySelector("#poke-count")!.textContent=`${n} / ${poke.length}`;(document.querySelector("#poke-bar") as HTMLElement).style.width=`${n/poke.length*100}%`;};
+ document.querySelectorAll<HTMLInputElement>("[data-poke]").forEach(x=>x.addEventListener("change",update));
+ update();
+}
+
+function mapRoutes(routes:RouteDay[]){
+ const map=L.map("map",{scrollWheelZoom:false}).setView([26.48,127.93],9);
+ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap contributors"}).addTo(map);
+ const colors=["#0077b6","#00a896","#f4a261","#e76f51","#7b2cbf","#6a4c93"];
+ const bounds:L.LatLngExpression[]=[];
+ routes.forEach((r,i)=>{
+   const latlngs=geometryLatLngs(r);
+   L.polyline(latlngs as any,{color:colors[i%colors.length],weight:5,opacity:.85}).bindPopup(`<b>Day ${r.day}</b><br>${r.title}`).addTo(map);
+   r.waypoints.forEach(w=>{L.circleMarker([w.lat,w.lon],{radius:5,color:"#fff",weight:2,fillColor:colors[i%colors.length],fillOpacity:1}).bindPopup(w.name).addTo(map);bounds.push([w.lat,w.lon]);});
+ });
+ if(bounds.length) map.fitBounds(bounds,{padding:[20,20]});
+}
+
+async function main(){
+ const {routes,generated}=await loadRoutes();
+ document.querySelector("#route-status")!.innerHTML=generated?"✅ 已載入由 Google My Maps 經 iron-camel scripts/build-routes.ts 產生的路線資料。":"⚠️ 尚未找到 generated routes.json，目前顯示網站內建 fallback 路線。";
+ routeCards(routes,generated);mapRoutes(routes);renderPoke();
+ const all=document.querySelector<HTMLAnchorElement>("#all-gpx")!;all.href=`${import.meta.env.BASE_URL}routes/generated/okinawa-all.gpx`;
+}
+
+void main();
