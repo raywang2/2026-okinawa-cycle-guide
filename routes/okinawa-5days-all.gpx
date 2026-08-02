@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="ChatGPT Okinawa Cycle Guide V2"
+ xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>沖繩本島 5 日環島｜All Days route seed</name>
+    <desc>Waypoint route seed only. Import into a cycling router and verify roads, closures, and bicycle access before riding.</desc>
+  </metadata>
+  <wpt lat="26.218000" lon="127.671300"><name>那霸／波上宮</name></wpt>
+  <wpt lat="26.245600" lon="127.687900"><name>浦添</name></wpt>
+  <wpt lat="26.281400" lon="127.732200"><name>宜野灣</name></wpt>
+  <wpt lat="26.315700" lon="127.753600"><name>北谷</name></wpt>
+  <wpt lat="26.441000" lon="127.714500"><name>殘波岬</name></wpt>
+  <wpt lat="26.497000" lon="127.850200"><name>恩納</name></wpt>
+  <wpt lat="26.591500" lon="127.977300"><name>名護</name></wpt>
+  <wpt lat="26.694400" lon="127.878000"><name>本部／海洋博公園</name></wpt>
+  <wpt lat="26.696800" lon="128.018100"><name>古宇利大橋</name></wpt>
+  <wpt lat="26.706800" lon="128.016200"><name>古宇利島</name></wpt>
+  <wpt lat="26.591500" lon="127.977300"><name>名護</name></wpt>
+  <wpt lat="26.701700" lon="128.120000"><name>大宜味</name></wpt>
+  <wpt lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></wpt>
+  <wpt lat="26.872300" lon="128.263200"><name>邊戶岬</name></wpt>
+  <wpt lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></wpt>
+  <wpt lat="26.633000" lon="128.157000"><name>東村</name></wpt>
+  <wpt lat="26.456000" lon="127.926000"><name>金武</name></wpt>
+  <wpt lat="26.379000" lon="127.857000"><name>宇流麻</name></wpt>
+  <wpt lat="26.327800" lon="127.927700"><name>海中道路</name></wpt>
+  <wpt lat="26.164800" lon="127.781400"><name>南城</name></wpt>
+  <wpt lat="26.173000" lon="127.826400"><name>齋場御嶽</name></wpt>
+  <wpt lat="26.167800" lon="127.831700"><name>知念岬</name></wpt>
+  <wpt lat="26.123600" lon="127.665700"><name>糸滿</name></wpt>
+  <wpt lat="26.161300" lon="127.669500"><name>豐見城</name></wpt>
+  <wpt lat="26.212400" lon="127.680900"><name>那霸</name></wpt>
+  <rte>
+    <name>沖繩本島 5 日環島｜All Days route seed</name>
+    <rtept lat="26.218000" lon="127.671300"><name>那霸／波上宮</name></rtept>
+    <rtept lat="26.245600" lon="127.687900"><name>浦添</name></rtept>
+    <rtept lat="26.281400" lon="127.732200"><name>宜野灣</name></rtept>
+    <rtept lat="26.315700" lon="127.753600"><name>北谷</name></rtept>
+    <rtept lat="26.441000" lon="127.714500"><name>殘波岬</name></rtept>
+    <rtept lat="26.497000" lon="127.850200"><name>恩納</name></rtept>
+    <rtept lat="26.591500" lon="127.977300"><name>名護</name></rtept>
+    <rtept lat="26.694400" lon="127.878000"><name>本部／海洋博公園</name></rtept>
+    <rtept lat="26.696800" lon="128.018100"><name>古宇利大橋</name></rtept>
+    <rtept lat="26.706800" lon="128.016200"><name>古宇利島</name></rtept>
+    <rtept lat="26.591500" lon="127.977300"><name>名護</name></rtept>
+    <rtept lat="26.701700" lon="128.120000"><name>大宜味</name></rtept>
+    <rtept lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></rtept>
+    <rtept lat="26.872300" lon="128.263200"><name>邊戶岬</name></rtept>
+    <rtept lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></rtept>
+    <rtept lat="26.633000" lon="128.157000"><name>東村</name></rtept>
+    <rtept lat="26.456000" lon="127.926000"><name>金武</name></rtept>
+    <rtept lat="26.379000" lon="127.857000"><name>宇流麻</name></rtept>
+    <rtept lat="26.327800" lon="127.927700"><name>海中道路</name></rtept>
+    <rtept lat="26.164800" lon="127.781400"><name>南城</name></rtept>
+    <rtept lat="26.173000" lon="127.826400"><name>齋場御嶽</name></rtept>
+    <rtept lat="26.167800" lon="127.831700"><name>知念岬</name></rtept>
+    <rtept lat="26.123600" lon="127.665700"><name>糸滿</name></rtept>
+    <rtept lat="26.161300" lon="127.669500"><name>豐見城</name></rtept>
+    <rtept lat="26.212400" lon="127.680900"><name>那霸</name></rtept>
+  </rte>
+</gpx>
