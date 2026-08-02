@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="ChatGPT Okinawa Cycle Guide V2"
+ xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Day 2｜恩納 → 名護 → 本部 → 古宇利 → 名護</name>
+    <desc>Waypoint route seed only. Import into a cycling router and verify roads, closures, and bicycle access before riding.</desc>
+  </metadata>
+  <wpt lat="26.497000" lon="127.850200"><name>恩納</name></wpt>
+  <wpt lat="26.591500" lon="127.977300"><name>名護</name></wpt>
+  <wpt lat="26.694400" lon="127.878000"><name>本部／海洋博公園</name></wpt>
+  <wpt lat="26.696800" lon="128.018100"><name>古宇利大橋</name></wpt>
+  <wpt lat="26.706800" lon="128.016200"><name>古宇利島</name></wpt>
+  <wpt lat="26.591500" lon="127.977300"><name>名護</name></wpt>
+  <rte>
+    <name>Day 2｜恩納 → 名護 → 本部 → 古宇利 → 名護</name>
+    <rtept lat="26.497000" lon="127.850200"><name>恩納</name></rtept>
+    <rtept lat="26.591500" lon="127.977300"><name>名護</name></rtept>
+    <rtept lat="26.694400" lon="127.878000"><name>本部／海洋博公園</name></rtept>
+    <rtept lat="26.696800" lon="128.018100"><name>古宇利大橋</name></rtept>
+    <rtept lat="26.706800" lon="128.016200"><name>古宇利島</name></rtept>
+    <rtept lat="26.591500" lon="127.977300"><name>名護</name></rtept>
+  </rte>
+</gpx>
