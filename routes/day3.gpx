@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="ChatGPT Okinawa Cycle Guide V2"
+ xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Day 3｜名護 → 邊戶岬 → 國頭</name>
+    <desc>Waypoint route seed only. Import into a cycling router and verify roads, closures, and bicycle access before riding.</desc>
+  </metadata>
+  <wpt lat="26.591500" lon="127.977300"><name>名護</name></wpt>
+  <wpt lat="26.701700" lon="128.120000"><name>大宜味</name></wpt>
+  <wpt lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></wpt>
+  <wpt lat="26.872300" lon="128.263200"><name>邊戶岬</name></wpt>
+  <wpt lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></wpt>
+  <rte>
+    <name>Day 3｜名護 → 邊戶岬 → 國頭</name>
+    <rtept lat="26.591500" lon="127.977300"><name>名護</name></rtept>
+    <rtept lat="26.701700" lon="128.120000"><name>大宜味</name></rtept>
+    <rtept lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></rtept>
+    <rtept lat="26.872300" lon="128.263200"><name>邊戶岬</name></rtept>
+    <rtept lat="26.745400" lon="128.177700"><name>國頭／邊土名</name></rtept>
+  </rte>
+</gpx>
