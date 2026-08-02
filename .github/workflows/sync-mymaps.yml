@@ -1,0 +1,85 @@
+name: Sync My Maps routes
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/sync-mymaps.ts"
+      - ".github/workflows/sync-mymaps.yml"
+      - "package.json"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-routes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Okinawa site
+        uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: Checkout iron-camel route builder
+        uses: actions/checkout@v4
+        with:
+          repository: raywang2/iron-camel-cycle-life-association-routes
+          path: route-builder
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            site/package-lock.json
+            route-builder/package-lock.json
+
+      - name: Install site tooling
+        working-directory: site
+        run: npm install
+
+      - name: Install iron-camel route builder
+        working-directory: route-builder
+        run: npm ci
+
+      - name: Convert Google My Maps into iron-camel inputs
+        working-directory: site
+        env:
+          MYMAPS_ID: 1OctsgV_s5C_SEg3u5LY3jrjZcCwdugk
+          ROUTE_BUILDER_DIR: ../route-builder
+        run: npm run sync:mymaps
+
+      - name: Generate GPX with iron-camel scripts/build-routes.ts
+        working-directory: route-builder
+        env:
+          FETCH_CONVENIENCE_STORES: "0"
+          USE_CACHED_CONVENIENCE_STORES: "0"
+          AVOID_FAST_ROADS: "0"
+          ALLOW_ROUTE_FALLBACK: "1"
+        run: npm run build:routes
+
+      - name: Copy generated route assets into website
+        run: |
+          mkdir -p site/public/routes/generated site/public/data
+          rm -f site/public/routes/generated/*.gpx
+          cp route-builder/gpx/*.gpx site/public/routes/generated/
+          cp route-builder/data/routes.json site/public/data/routes.json
+          cp site/tmp/mymaps-source.kml site/public/data/mymaps-source.kml
+
+      - name: Build TypeScript website
+        working-directory: site
+        run: npm run build
+
+      - name: Commit generated route assets
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/routes/generated public/data package-lock.json
+          if git diff --cached --quiet; then
+            echo "No generated route changes"
+          else
+            git commit -m "Sync Okinawa routes from Google My Maps"
+            git push
+          fi
