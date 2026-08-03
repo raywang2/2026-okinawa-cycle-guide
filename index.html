@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#087f8c" />
   <title>2026 沖繩單車環島冒險手冊</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="/2026-okinawa-cycle-guide/src/style.css" />
+  <link rel="stylesheet" href="src/style.css" />
 </head>
 <body>
   <header class="hero"><div class="wrap"><div class="eyebrow">OKINAWA • CYCLING QUEST • 2026</div><h1>沖繩單車<br>環島冒險手冊</h1></div></header>
@@ -16,7 +16,7 @@
 
     <section id="route"><div class="wrap"><h2>每日路線／互動地圖</h2><div id="day-tabs" class="tools" style="margin-bottom:12px"></div><div class="card"><div id="map"></div><div class="tools" style="margin-top:12px"><a class="button" href="https://www.google.com/maps/d/edit?mid=1OctsgV_s5C_SEg3u5LY3jrjZcCwdugk&usp=sharing" target="_blank">Google My Maps ↗</a></div></div><div id="route-detail" class="card" style="margin-top:14px"></div></div></section>
 
-    <section id="poke"><div class="wrap"><h2>Poké Lids 收集任務</h2><p class="sub">沖繩本島 12 個收集點；勾選進度會保存在目前瀏覽器。</p><div class="card"><b id="poke-count">0 / 12</b><div class="bar"><i id="poke-bar"></i></div></div><div id="poke-list" class="grid g3" style="margin-top:12px"></div></div></section>
+    <section id="poke"><div class="wrap"><h2>Poké Lids 收集任務</h2><p class="sub">依 Pokémon Local Acts 官方沖繩頁整理的本島 12 個收集點。勾選進度會儲存在此瀏覽器的 localStorage。</p><div class="card"><b id="poke-count">0 / 12</b><div class="bar"><i id="poke-bar"></i></div></div><div id="poke-list" class="grid g3" style="margin-top:12px"></div></div></section>
 
     <section id="stay"><div class="wrap"><h2>住宿資訊</h2><div class="grid g2">
       <div class="card"><div class="meta"><span>10/10</span><span>那霸市</span></div><h3>コンフォートホテル那覇県庁前</h3><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=%E3%82%B3%E3%83%B3%E3%83%95%E3%82%A9%E3%83%BC%E3%83%88%E3%83%9B%E3%83%86%E3%83%AB%E9%82%A3%E8%A6%87%E7%9C%8C%E5%BA%81%E5%89%8D">Google Maps ↗</a></div>
@@ -31,8 +31,12 @@
 
     <section id="certificate"><div class="wrap"><h2>完騎證書</h2><p class="sub">填寫後可用瀏覽器列印／另存 PDF。Poké Lids 數量會自動帶入。</p><div class="grid g2"><div class="card"><div class="grid g2"><label class="field">姓名<input id="cert-name" placeholder="RR"></label><label class="field">完成日期<input id="cert-date" type="date"></label><label class="field">總里程 km<input id="cert-km" type="number"></label><label class="field">總爬升 m<input id="cert-elev" type="number"></label></div><div class="tools" style="margin-top:12px"><button class="button" id="cert-update">更新證書</button><button class="button" onclick="window.print()">列印／存 PDF</button></div></div><div class="cert"><div class="small">OKINAWA ISLAND CYCLING QUEST</div><h3>完騎紀念證書</h3><p>茲證明</p><div class="name" id="cert-name-out">RR</div><p>完成沖繩本島單車環島挑戰</p><p><b id="cert-km-out">— km</b> ・ 爬升 <b id="cert-elev-out">— m</b></p><p>Poké Lids <b id="cert-poke">0 / 12</b></p><p id="cert-date-out" class="small">完成日期：—</p></div></div></div></section>
   </main>
+  <dialog id="poke-dialog" class="poke-dialog">
+    <form method="dialog" class="dialog-close"><button aria-label="關閉介紹">×</button></form>
+    <div id="poke-dialog-content"></div>
+  </dialog>
   <footer class="wrap">2026 Okinawa Cycling Quest</footer>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="/2026-okinawa-cycle-guide/assets/main.js"></script>
+  <script type="module" src="assets/main.js"></script>
 </body>
 </html>
