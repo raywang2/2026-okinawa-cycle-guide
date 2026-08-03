@@ -1,6 +1,7 @@
 const BASE='/2026-okinawa-cycle-guide/';
 const DATA_BASE=`${BASE}public/`;
 const STORAGE='okinawa-cycle-guide-state';
+const GEO_CACHE='okinawa-cycle-guide-hotel-geocode-v1';
 const fallback=[
  {day:1,title:'那霸 → 恩納（西海岸）',description:'波上宮、浦添、宜野灣、北谷、殘波岬、恩納',distanceKm:75,waypoints:[{name:'那霸',lat:26.218,lon:127.6713},{name:'殘波岬',lat:26.441,lon:127.7145},{name:'恩納',lat:26.497,lon:127.8502}]},
  {day:2,title:'恩納 → 本部 → 古宇利 → 名護',description:'名護、本部、古宇利大橋',distanceKm:98,waypoints:[{name:'恩納',lat:26.497,lon:127.8502},{name:'本部',lat:26.6944,lon:127.878},{name:'古宇利',lat:26.7068,lon:128.0162},{name:'名護',lat:26.5915,lon:127.9773}]},
@@ -10,6 +11,13 @@ const fallback=[
 ];
 const poke=[
  ['那霸 ①','Growlithe',26.22005,127.71657],['那霸 ②','Arcanine',26.21641,127.68942],['浦添','Solrock + Skiploom',26.245559,127.687899],['宜野灣','Corsola + Luvdisc',26.28139,127.732214],['北谷','Growlithe',26.315733,127.753613],['沖繩市','Thwackey + Lurantis',26.32766,127.803001],['宇流麻','Tauros',26.436181,127.826113],['名護','Emolga + Pikipek',26.587352,127.985744],['本部','Wailord',26.691694,127.877972],['南城','Seviper + Zangoose',26.169111,127.827083],['糸滿','Wartortle + Sandygast',26.13828,127.661336],['豐見城','Axew + Jangmo-o',26.157556,127.656121]
+];
+const hotels=[
+ {dates:'10/10、10/15–10/18',area:'那霸市',name:'コンフォートホテル那覇県庁前',query:'コンフォートホテル那覇県庁前 沖縄',fallback:[26.2124,127.6809]},
+ {dates:'10/11',area:'今歸仁村',name:'Villa Nakijin COCONUT JUNGLIA Okinawa',query:'Villa Nakijin COCONUT JUNGLIA Okinawa',fallback:[26.682,127.972]},
+ {dates:'10/12',area:'國頭村',name:'Yanbaru Hostel',query:'Yanbaru Hostel Okinawa',fallback:[26.7454,128.1777]},
+ {dates:'10/13',area:'金武町',name:'ASBO STAY HOTEL',query:'ASBO STAY HOTEL Okinawa',fallback:[26.456,127.926]},
+ {dates:'10/14',area:'八重瀨町',name:'Unwind DAY OFF Nagamo',query:'Unwind DAY OFF Nagamo Okinawa',fallback:[26.158,127.72]}
 ];
 const prep=[['車況','外胎、煞車、變速、鏈條、螺絲'],['爆胎','內胎／補胎工具、撬胎棒、CO₂ 或打氣筒'],['電力','碼表、前後燈、行動電源、充電線'],['天候','薄雨衣、防曬、袖套、電解質'],['導航','GPX 已下載到碼表／手機，另有離線備份'],['證件／保險','護照、旅遊／單車保險資料']];
 function state(){try{return JSON.parse(localStorage.getItem(STORAGE)||'{}')}catch{return{}}}
@@ -22,9 +30,33 @@ function renderRoutes(routes){
  const total=routes.reduce((s,r)=>s+routeKm(r),0);document.querySelector('#total-km').textContent=`${total.toFixed(1)} km`;document.querySelector('#ride-days').textContent=`${routes.length} days`;
  document.querySelector('#routes').innerHTML=routes.map(r=>{const day=String(r.day).padStart(2,'0');const stores=Array.isArray(r.convenienceStores)?r.convenienceStores.length:0;return `<article class="card day"><div class="badge">D${r.day}</div><div><h3>${r.title}</h3><div class="meta"><span>${routeKm(r)||'—'} km</span>${stores?`<span>補給候選 ${stores}</span>`:''}</div><p class="muted">${r.description||r.waypoints.map(w=>w.name).join(' → ')}</p><div class="tools"><a href="${DATA_BASE}routes/generated/day-${day}.gpx" download>下載 GPX</a>${r.waypoints?.length?`<span class="muted">${r.waypoints.map(w=>w.name).join(' → ')}</span>`:''}</div></div></article>`}).join('');
 }
-function renderMap(routes){const map=L.map('map',{scrollWheelZoom:false}).setView([26.48,127.93],9);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);const colors=['#0077b6','#00a896','#f4a261','#e76f51','#7b2cbf','#6a4c93'];const bounds=[];routes.forEach((r,i)=>{const ll=routeLatLngs(r);if(r.geojson?.type==='MultiLineString')ll.forEach(line=>L.polyline(line,{color:colors[i%colors.length],weight:5,opacity:.85}).addTo(map));else L.polyline(ll,{color:colors[i%colors.length],weight:5,opacity:.85}).bindPopup(`<b>Day ${r.day}</b><br>${r.title}`).addTo(map);(r.waypoints||[]).forEach(w=>{L.circleMarker([w.lat,w.lon],{radius:5,color:'#fff',weight:2,fillColor:colors[i%colors.length],fillOpacity:1}).bindPopup(w.name).addTo(map);bounds.push([w.lat,w.lon]);});});if(bounds.length)map.fitBounds(bounds,{padding:[20,20]});}
+function mapsUrl(query){return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;}
+function geocodeCache(){try{return JSON.parse(localStorage.getItem(GEO_CACHE)||'{}')}catch{return{}}}
+async function hotelLocation(hotel){
+ const cache=geocodeCache();
+ if(cache[hotel.name]?.lat&&cache[hotel.name]?.lon)return {lat:cache[hotel.name].lat,lon:cache[hotel.name].lon,approx:false};
+ try{
+  const url=`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=jp&q=${encodeURIComponent(hotel.query)}`;
+  const response=await fetch(url,{headers:{Accept:'application/json'}});
+  if(!response.ok)throw new Error();
+  const result=await response.json();
+  if(result?.[0]){const location={lat:Number(result[0].lat),lon:Number(result[0].lon),approx:false};cache[hotel.name]=location;localStorage.setItem(GEO_CACHE,JSON.stringify(cache));return location;}
+ }catch{}
+ return {lat:hotel.fallback[0],lon:hotel.fallback[1],approx:true};
+}
+async function renderMap(routes){
+ const map=L.map('map',{scrollWheelZoom:false}).setView([26.48,127.93],9);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
+ const routeLayer=L.layerGroup().addTo(map);const hotelLayer=L.layerGroup().addTo(map);
+ L.control.layers(null,{'單車路線':routeLayer,'住宿':hotelLayer},{collapsed:false}).addTo(map);
+ const colors=['#0077b6','#00a896','#f4a261','#e76f51','#7b2cbf','#6a4c93'];const bounds=[];
+ routes.forEach((r,i)=>{const ll=routeLatLngs(r);if(r.geojson?.type==='MultiLineString')ll.forEach(line=>L.polyline(line,{color:colors[i%colors.length],weight:5,opacity:.85}).addTo(routeLayer));else L.polyline(ll,{color:colors[i%colors.length],weight:5,opacity:.85}).bindPopup(`<b>Day ${r.day}</b><br>${r.title}`).addTo(routeLayer);(r.waypoints||[]).forEach(w=>{L.circleMarker([w.lat,w.lon],{radius:5,color:'#fff',weight:2,fillColor:colors[i%colors.length],fillOpacity:1}).bindPopup(w.name).addTo(routeLayer);bounds.push([w.lat,w.lon]);});});
+ const locations=await Promise.all(hotels.map(async hotel=>({hotel,location:await hotelLocation(hotel)})));
+ locations.forEach(({hotel,location})=>{const popup=`<b>🏨 ${hotel.name}</b><br>${hotel.dates} ・ ${hotel.area}<br>${location.approx?'<small>地圖位置為地區中心，請以 Google Maps 搜尋結果為準。</small><br>':''}<a href="${mapsUrl(hotel.query)}" target="_blank" rel="noopener">Google Maps ↗</a>`;L.circleMarker([location.lat,location.lon],{radius:8,color:'#fff',weight:2,fillColor:'#d97706',fillOpacity:1}).bindPopup(popup).addTo(hotelLayer);bounds.push([location.lat,location.lon]);});
+ if(bounds.length)map.fitBounds(bounds,{padding:[20,20]});
+}
 function renderPoke(){document.querySelector('#poke-list').innerHTML=poke.map(([name,mons,lat,lon],i)=>`<label class="poi"><input type="checkbox" data-save="poke-${i}" data-group="poke"><span><b>${name}</b><br><span class="muted">${mons}</span><br><a target="_blank" href="https://www.google.com/maps?q=${lat},${lon}">地圖 ↗</a></span></label>`).join('');}
 function renderPrep(){document.querySelector('#prep-list').innerHTML=prep.map(([name,desc],i)=>`<label class="poi"><input type="checkbox" data-save="prep-${i}"><span><b>${name}</b><br><span class="muted">${desc}</span></span></label>`).join('');}
 function updateProgress(){const pc=[...document.querySelectorAll('[data-group="poke"]')].filter(x=>x.checked).length;document.querySelector('#poke-count').textContent=`${pc} / ${poke.length}`;document.querySelector('#poke-bar').style.width=`${pc/poke.length*100}%`;document.querySelector('#cert-poke').textContent=`${pc} / ${poke.length}`;}
 function setupCertificate(){document.querySelector('#cert-update').addEventListener('click',()=>{document.querySelector('#cert-name-out').textContent=document.querySelector('#cert-name').value.trim()||'RR';document.querySelector('#cert-date-out').textContent='完成日期：'+(document.querySelector('#cert-date').value||'—');document.querySelector('#cert-km-out').textContent=(document.querySelector('#cert-km').value||'—')+' km';document.querySelector('#cert-elev-out').textContent=(document.querySelector('#cert-elev').value||'—')+' m';updateProgress();});}
-(async()=>{renderPoke();renderPrep();document.querySelectorAll('[data-save]').forEach(x=>x.addEventListener('change',save));restore();setupCertificate();const routes=await loadRoutes();renderRoutes(routes);renderMap(routes);})();
+(async()=>{renderPoke();renderPrep();document.querySelectorAll('[data-save]').forEach(x=>x.addEventListener('change',save));restore();setupCertificate();const routes=await loadRoutes();renderRoutes(routes);await renderMap(routes);})();
