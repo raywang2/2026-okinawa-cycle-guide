@@ -47,10 +47,11 @@ async function hotelLocation(hotel){
 async function renderMap(routes){
  const map=L.map('map',{scrollWheelZoom:false}).setView([26.48,127.93],9);
  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
- const routeLayer=L.layerGroup().addTo(map);const hotelLayer=L.layerGroup().addTo(map);
- L.control.layers(null,{'單車路線':routeLayer,'住宿':hotelLayer},{collapsed:false}).addTo(map);
+ const routeLayer=L.layerGroup().addTo(map);const hotelLayer=L.layerGroup().addTo(map);const pokeLayer=L.layerGroup().addTo(map);
+ L.control.layers(null,{'單車路線':routeLayer,'住宿':hotelLayer,'Poké Lids':pokeLayer},{collapsed:false}).addTo(map);
  const colors=['#0077b6','#00a896','#f4a261','#e76f51','#7b2cbf','#6a4c93'];const bounds=[];
  routes.forEach((r,i)=>{const ll=routeLatLngs(r);if(r.geojson?.type==='MultiLineString')ll.forEach(line=>L.polyline(line,{color:colors[i%colors.length],weight:5,opacity:.85}).addTo(routeLayer));else L.polyline(ll,{color:colors[i%colors.length],weight:5,opacity:.85}).bindPopup(`<b>Day ${r.day}</b><br>${r.title}`).addTo(routeLayer);(r.waypoints||[]).forEach(w=>{L.circleMarker([w.lat,w.lon],{radius:5,color:'#fff',weight:2,fillColor:colors[i%colors.length],fillOpacity:1}).bindPopup(w.name).addTo(routeLayer);bounds.push([w.lat,w.lon]);});});
+ poke.forEach(([name,mons,lat,lon])=>{const popup=`<b>🕳️ ${name}</b><br>${mons}<br><a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank" rel="noopener">Google Maps ↗</a>`;L.circleMarker([lat,lon],{radius:7,color:'#fff',weight:2,fillColor:'#7c3aed',fillOpacity:1}).bindPopup(popup).addTo(pokeLayer);bounds.push([lat,lon]);});
  const locations=await Promise.all(hotels.map(async hotel=>({hotel,location:await hotelLocation(hotel)})));
  locations.forEach(({hotel,location})=>{const popup=`<b>🏨 ${hotel.name}</b><br>${hotel.dates} ・ ${hotel.area}<br>${location.approx?'<small>地圖位置為地區中心，請以 Google Maps 搜尋結果為準。</small><br>':''}<a href="${mapsUrl(hotel.query)}" target="_blank" rel="noopener">Google Maps ↗</a>`;L.circleMarker([location.lat,location.lon],{radius:8,color:'#fff',weight:2,fillColor:'#d97706',fillOpacity:1}).bindPopup(popup).addTo(hotelLayer);bounds.push([location.lat,location.lon]);});
  if(bounds.length)map.fitBounds(bounds,{padding:[20,20]});
