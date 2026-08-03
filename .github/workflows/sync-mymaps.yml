@@ -14,6 +14,7 @@ permissions:
 jobs:
   sync-routes:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout Okinawa site
         uses: actions/checkout@v4
@@ -50,18 +51,29 @@ jobs:
           ROUTE_BUILDER_DIR: ../route-builder
         run: npm run sync:mymaps
 
-      - name: Generate GPX and 10 km convenience-store stops
+      - name: Generate GPX and 10km convenience stores with iron-camel
         working-directory: route-builder
         env:
           FETCH_CONVENIENCE_STORES: "1"
           USE_CACHED_CONVENIENCE_STORES: "0"
-          REFETCH_CONVENIENCE_STORES: "1"
+          REFETCH_CONVENIENCE_STORES: "0"
           REST_INTERVAL_KM: "10"
           REST_WINDOW_KM: "15"
           POI_RADIUS_M: "1200"
+          OVERPASS_URLS: "https://overpass.kumi.systems/api/interpreter,https://overpass-api.de/api/interpreter"
+          OVERPASS_DELAY_MS: "5000"
+          OVERPASS_TIMEOUT_MS: "60000"
+          NOMINATIM_DELAY_MS: "1500"
           AVOID_FAST_ROADS: "0"
           ALLOW_ROUTE_FALLBACK: "1"
-        run: npm run build:routes
+        run: |
+          set -e
+          if npm run build:routes; then
+            exit 0
+          fi
+          echo "First convenience-store build failed; retrying after cooldown..."
+          sleep 20
+          npm run build:routes
 
       - name: Copy generated route assets into website
         run: |
