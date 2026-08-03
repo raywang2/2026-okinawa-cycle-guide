@@ -1,0 +1,22 @@
+assets/main.js
+  h_c3a960f1d8b0a0 27,45-62,67-68,71,74,76,78-80,82,85-87,90-91
+index.html
+  h_c3a960f1d8b0a0 12,17
+public/data/routes.json
+  h_c3a960f1d8b0a0 22386-22388,22392,22418-22420,22422-22430
+public/images/ATTRIBUTION.md
+  h_c3a960f1d8b0a0 1-8
+src/style.css
+  h_c3a960f1d8b0a0 2-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "1cac52f67252c5e5745fe8c4cf27fdccc2850fde",
+  "prompts": {},
+  "humans": {
+    "h_c3a960f1d8b0a0": {
+      "author": "Ray Wang <sncorges@gmail.com>"
+    }
+  }
+}
