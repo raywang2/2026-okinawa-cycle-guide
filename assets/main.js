@@ -1,7 +1,7 @@
 const BASE='/2026-okinawa-cycle-guide/';
 const DATA_BASE=`${BASE}public/`;
 const STORAGE='okinawa-cycle-guide-state';
-const GEO_CACHE='okinawa-cycle-guide-hotel-geocode-v1';
+const GEO_CACHE='okinawa-cycle-guide-hotel-geocode-v2';
 const fallback=[
  {day:1,title:'那霸 → 恩納（西海岸）',description:'波上宮、浦添、宜野灣、北谷、殘波岬、恩納',distanceKm:75,waypoints:[{name:'那霸',lat:26.218,lon:127.6713},{name:'殘波岬',lat:26.441,lon:127.7145},{name:'恩納',lat:26.497,lon:127.8502}]},
  {day:2,title:'恩納 → 本部 → 古宇利 → 名護',description:'名護、本部、古宇利大橋',distanceKm:98,waypoints:[{name:'恩納',lat:26.497,lon:127.8502},{name:'本部',lat:26.6944,lon:127.878},{name:'古宇利',lat:26.7068,lon:128.0162},{name:'名護',lat:26.5915,lon:127.9773}]},
@@ -24,13 +24,13 @@ const poke=[
  {id:231,name:'糸滿市',pokemon:'卡咪龜、沙丘娃',lat:26.13828,lon:127.661336,address:'沖繩縣糸滿市西崎町 4 丁目 19-1',about:'糸滿位在那霸以南約 12 公里、沖繩本島最南端。糸滿圓環附近、國道 331 號靠海一側延展著以海人聞名的市區；市場裡迴盪著堅韌阿嬤們充滿活力的叫賣聲。'},
  {id:233,name:'豐見城市',pokemon:'牙牙、心鱗寶',lat:26.157556,lon:127.656121,address:'沖繩縣豐見城市字豐崎 1-1162',about:'豐見城市自 2002 年升格為市後，始終在各城市成長力排名中名列前茅，人口也持續增加，是一座充滿年輕活力的城市。這裡鄰近那霸機場，並有沖繩空手會館、瀨長島 Umikaji Terrace，以及設有水族館的 iias 沖繩豐崎等觀光設施。'}
 ].map(p=>({...p,officialUrl:`https://local.pokemon.jp/manhole/desc/${p.id}/`,mapUrl:`https://maps.google.com/maps?q=${p.lat},${p.lon}`}));
-poke.forEach(p=>p.imageUrl=`${BASE}images/poke-lids/${p.id}.png`);
+poke.forEach(p=>p.imageUrl=`${DATA_BASE}images/poke-lids/${p.id}.png`);
 const hotels=[
- {rideDay:5,dates:'10/10、10/15–10/18',area:'那霸市',name:'コンフォートホテル那覇県庁前',query:'コンフォートホテル那覇県庁前 沖縄',fallback:[26.2124,127.6809]},
- {rideDay:1,dates:'10/11',area:'今歸仁村',name:'Villa Nakijin COCONUT JUNGLIA Okinawa',query:'Villa Nakijin COCONUT JUNGLIA Okinawa',fallback:[26.682,127.972]},
- {rideDay:2,dates:'10/12',area:'國頭村',name:'Yanbaru Hostel',query:'Yanbaru Hostel Okinawa',fallback:[26.7454,128.1777]},
- {rideDay:3,dates:'10/13',area:'金武町',name:'ASBO STAY HOTEL',query:'ASBO STAY HOTEL Okinawa',fallback:[26.456,127.926]},
- {rideDay:4,dates:'10/14',area:'八重瀨町',name:'Unwind DAY OFF Nagamo',query:'Unwind DAY OFF Nagamo Okinawa',fallback:[26.158,127.72]}
+ {rideDay:5,dates:'Day 1｜10/10、Day 6–8｜10/15–10/18',area:'那霸市',name:'コンフォートホテル那覇県庁前',address:'1 Chome-3-11 Kumoji, Naha, Okinawa 900-0015 日本',query:'1 Chome-3-11 Kumoji, Naha, Okinawa 900-0015 Japan',mapUrl:'https://maps.app.goo.gl/ijsUw8d7xiHXhQ8C6',fallback:[26.2124,127.6809]},
+ {rideDay:1,dates:'Day 2｜10/11',area:'今歸仁村',name:'Villa Nakijin COCONUT JUNGLIA Okinawa',address:'Nakasone, 今歸仁村國頭郡沖繩縣 905-0401 日本',query:'Nakasone, Nakijin, Kunigami District, Okinawa 905-0401 Japan',mapUrl:'https://www.google.com/maps/place/Villa+Nakijin+COCONUT+JUNGLIA+Okinawa+-+Two-Bedroom+House/@26.6909104,127.9764976,17z/data=!3m1!4b1!4m10!3m9!1s0x34e457fdf286219d:0x419b052acab0b187!5m2!4m1!1i2!8m2!3d26.6909104!4d127.9790725!16s%2Fg%2F11n3m1sqnm!17BQ0FF?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D',fallback:[26.6909104,127.9790725]},
+ {rideDay:2,dates:'Day 3｜10/12',area:'國頭村',name:'Yanbaru Hostel',address:'1429 Hentona, Kunigami, Kunigami District, Okinawa 905-1411 日本',query:'1429 Hentona, Kunigami, Kunigami District, Okinawa 905-1411 Japan',mapUrl:'https://maps.app.goo.gl/RfzpbfRpRrnkGWjY9',fallback:[26.7454,128.1777]},
+ {rideDay:3,dates:'Day 4｜10/13',area:'金武町',name:'ASBO STAY HOTEL',address:'10907 Kin, Kunigami District, Okinawa 904-1201 日本',query:'10907 Kin, Kunigami District, Okinawa 904-1201 Japan',mapUrl:'https://maps.app.goo.gl/wq5vkFKvAems3yy17',fallback:[26.456,127.926]},
+ {rideDay:4,dates:'Day 5｜10/14',area:'八重瀨町',name:'Unwind DAY OFF Nagamo',address:'85番地1 Nagamo, Yaese, Shimajiri District, Okinawa 901-0501 日本',query:'85 Nagamo, Yaese, Shimajiri District, Okinawa 901-0501 Japan',mapUrl:'https://maps.app.goo.gl/hWorefwuisjUpP7x8',fallback:[26.158,127.72]}
 ];
 const prep=[['車況','外胎、煞車、變速、鏈條、螺絲'],['爆胎','內胎／補胎工具、撬胎棒、CO₂ 或打氣筒'],['電力','碼表、前後燈、行動電源、充電線'],['天候','薄雨衣、防曬、袖套、電解質'],['導航','GPX 已下載到碼表／手機，另有離線備份'],['證件／保險','護照、旅遊／單車保險資料']];
 function state(){try{return JSON.parse(localStorage.getItem(STORAGE)||'{}')}catch{return{}}}
@@ -44,9 +44,9 @@ function geocodeCache(){try{return JSON.parse(localStorage.getItem(GEO_CACHE)||'
 async function hotelLocation(hotel){const cache=geocodeCache();if(cache[hotel.name]?.lat&&cache[hotel.name]?.lon)return {...cache[hotel.name],approx:false};try{const response=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=jp&q=${encodeURIComponent(hotel.query)}`,{headers:{Accept:'application/json'}});if(!response.ok)throw new Error();const result=await response.json();if(result?.[0]){const loc={lat:Number(result[0].lat),lon:Number(result[0].lon)};cache[hotel.name]=loc;localStorage.setItem(GEO_CACHE,JSON.stringify(cache));return {...loc,approx:false};}}catch{}return {lat:hotel.fallback[0],lon:hotel.fallback[1],approx:true};}
 function storeKm(store){return Number(store.routeProgressKm??store.targetKm??0);}
 function storePopup(store){const km=storeKm(store);const distance=Number(store.distanceFromRouteM??0);const label=store.displayName||store.name||store.brand||'補給點';const address=store.address||'';const url=store.googleMapsUrl||mapsUrl(`${store.lat},${store.lon}`);return `<b>${storeFallback(store)} ${storeKind(store)}｜約 ${km.toFixed(0)} km｜${label}</b><br>${address}${address?'<br>':''}<small>${distance?`離路線約 ${Math.round(distance)} m`:''}</small><br><a href="${url}" target="_blank" rel="noopener">Google Maps ↗</a>`;}
-const LAWSON_LOGO=`${BASE}images/store-logos/lawson.webp`;
-const SEVEN_ELEVEN_LOGO=`${BASE}images/store-logos/seven-eleven.jpg`;
-const FAMILY_MART_LOGO=`${BASE}images/store-logos/familymart.png`;
+const LAWSON_LOGO=`${DATA_BASE}images/store-logos/lawson.webp`;
+const SEVEN_ELEVEN_LOGO=`${DATA_BASE}images/store-logos/seven-eleven.jpg`;
+const FAMILY_MART_LOGO=`${DATA_BASE}images/store-logos/familymart.png`;
 function isLawsonStore(store){return /ローソン|lawson/i.test([store.displayName,store.name,store.brand].filter(Boolean).join(' '));}
 function isSevenElevenStore(store){return /セブン-?イレブン|7-?eleven/i.test([store.displayName,store.name,store.brand].filter(Boolean).join(' '));}
 function isFamilyMartStore(store){return /ファミリーマート|familymart/i.test([store.displayName,store.name,store.brand].filter(Boolean).join(' '));}
