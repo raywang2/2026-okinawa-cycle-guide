@@ -1,0 +1,20 @@
+assets/main.js
+  s_eb69779ec283c6::t_0ad5d5e6f69cff 27,29-33,47-49
+  s_eb69779ec283c6::t_31c337eaf64074 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "89b5e0d32b399e128fdcba4c3d035ad4ded44abb",
+  "prompts": {},
+  "sessions": {
+    "s_eb69779ec283c6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fc7e3-6d08-7030-b655-66466ccbcfa0",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "Ray Wang <sncorges@gmail.com>"
+    }
+  }
+}
