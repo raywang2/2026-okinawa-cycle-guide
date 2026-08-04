@@ -1,0 +1,18 @@
+assets/main.js
+  h_c3a960f1d8b0a0 117,121,127
+index.html
+  h_c3a960f1d8b0a0 40-43
+src/style.css
+  h_c3a960f1d8b0a0 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "65bd2d989c9b034f5d5da784799043f94c1a1b63",
+  "prompts": {},
+  "humans": {
+    "h_c3a960f1d8b0a0": {
+      "author": "Ray Wang <sncorges@gmail.com>"
+    }
+  }
+}
