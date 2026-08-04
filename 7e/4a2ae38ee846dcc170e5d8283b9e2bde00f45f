@@ -1,0 +1,20 @@
+assets/main.js
+  h_c3a960f1d8b0a0 48,92,117-119,125
+index.html
+  h_c3a960f1d8b0a0 13,21-22
+public/data/ramen.json
+  h_c3a960f1d8b0a0 1-1502
+src/style.css
+  h_c3a960f1d8b0a0 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "7e4a2ae38ee846dcc170e5d8283b9e2bde00f45f",
+  "prompts": {},
+  "humans": {
+    "h_c3a960f1d8b0a0": {
+      "author": "Ray Wang <sncorges@gmail.com>"
+    }
+  }
+}
