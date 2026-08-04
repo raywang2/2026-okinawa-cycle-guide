@@ -1,0 +1,14 @@
+src/style.css
+  h_c3a960f1d8b0a0 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.20",
+  "base_commit_sha": "231419b95237ba8d1900a8f792596d28ef70a754",
+  "prompts": {},
+  "humans": {
+    "h_c3a960f1d8b0a0": {
+      "author": "Ray Wang <sncorges@gmail.com>"
+    }
+  }
+}
