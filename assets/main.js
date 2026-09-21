@@ -1,6 +1,8 @@
 import { linkRouteMap } from './route-link.js';
+import { setupPwa } from './pwa.js';
 const BASE='/2026-okinawa-cycle-guide/';
-const DATA_BASE=`${BASE}public/`;
+const DATA_BASE=import.meta.env?.PROD?BASE:`${BASE}public/`;
+setupPwa(BASE);
 const STORAGE='okinawa-cycle-guide-state';
 const GEO_CACHE='okinawa-cycle-guide-hotel-geocode-v2';
 const fallback=[

@@ -4,13 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#087f8c" />
+  <link rel="manifest" href="./app.webmanifest" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>2026 沖繩單車環島冒險手冊</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="assets/vendor/leaflet.css" />
   <link rel="stylesheet" href="src/style.css" />
 </head>
 <body>
   <header class="hero"><div class="wrap"><div class="eyebrow">OKINAWA • CYCLING QUEST • 2026</div><h1>沖繩單車<br>環島冒險手冊</h1><p class="hero-sub">這是由Kenny、Ray、Ben組成的奇幻冒險團</p></div></header>
   <nav class="nav"><a href="#overview">總覽</a><a href="#route">每日路線／地圖</a><a href="#poke">Poké Lids</a><a href="#ramen">拉麵</a><a href="#stay">住宿</a><a href="#prep">補給／準備</a><a href="#certificate">完騎證書</a></nav>
+  <div class="pwa-bar wrap"><span id="pwa-status" role="status" hidden></span><button id="pwa-install" class="button" hidden>安裝到主畫面</button><button id="pwa-update" class="button" hidden>更新版本</button></div>
   <main>
     <section id="overview"><div class="wrap"><h2>行程總覽</h2><div class="grid g3"><div class="card"><div class="kpi" id="total-km">— km</div><div class="muted">總里程</div></div><div class="card"><div class="kpi" id="ride-days">—</div><div class="muted">騎乘日數</div></div><div class="card"><div class="kpi">Okinawa</div><div class="muted">單車環島旅行</div></div></div></div></section>
 
@@ -42,7 +46,7 @@
     <figure><img id="ramen-image-preview" alt=""><figcaption id="ramen-image-caption"></figcaption></figure>
   </dialog>
   <footer class="wrap">2026 Okinawa Cycling Quest</footer>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./assets/vendor/leaflet.js"></script>
   <script type="module" src="assets/main.js"></script>
 </body>
 </html>
