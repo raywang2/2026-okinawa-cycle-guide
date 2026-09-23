@@ -51,7 +51,13 @@
   .map-shell #map, #route:has(.elevation-card) .map-shell #map, #route:has(.elevation-card) .map-panel { height: var(--map-height); min-height: 0; }
   .map-shell #map, .map-panel { border-radius: 12px; box-shadow: none; }
   .map-panel { padding: 16px; }
-  .map-stage { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  .map-stage { position: relative; min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  .map-location-control { position: absolute; top: 12px; right: 12px; z-index: 500; display: grid; justify-items: end; gap: 6px; max-width: calc(100% - 74px); }
+  .map-location-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+  .map-location-actions button { min-height: 44px; padding: 7px 12px; border: 1px solid #a7cbd0; border-radius: 8px; background: #fff; color: var(--ink); box-shadow: 0 2px 8px #17363c33; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .map-location-actions button:disabled { cursor: wait; opacity: .75; }
+  #map-location-status { max-width: 260px; margin: 0; padding: 6px 9px; border-radius: 7px; background: #fff; color: var(--ink); box-shadow: 0 2px 8px #17363c33; font-size: 12px; line-height: 1.4; }
+  .map-location-control [hidden] { display: none; }
   .map-stage #map, #route:has(.elevation-card) .map-stage #map { height: clamp(520px, 62svh, 760px); border: 0; border-radius: 12px 12px 0 0; }
   .map-shell { align-items: stretch; }
   .map-shell .map-panel, #route:has(.elevation-card) .map-panel { height: auto; min-height: 560px; }

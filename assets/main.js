@@ -1,6 +1,7 @@
 import { elevationRange } from './elevation-range.js';
 import { linkRouteMap } from './route-link.js';
 import { setupPwa } from './pwa.js';
+import { setupCurrentLocation } from './current-location.js';
 const BASE='/2026-okinawa-cycle-guide/';
 const DATA_BASE=import.meta.env?.PROD?BASE:`${BASE}public/`;
 setupPwa(BASE);
@@ -96,6 +97,7 @@ function routeDetail(route){const day=String(route.day).padStart(2,'0');const st
 async function renderRouteMap(routes){
  const total=routes.reduce((s,r)=>s+routeKm(r),0);document.querySelector('#total-km').textContent=`${total.toFixed(1)} km`;document.querySelector('#ride-days').textContent=`${routes.length} days`;
  const map=L.map('map',{scrollWheelZoom:true}).setView([26.48,127.93],9);globalThis.ramenMap=map;globalThis.ramenLayer=L.layerGroup();globalThis.ramenMarkers=new Map();L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);
+ setupCurrentLocation(map,L);
  const routeLayer=L.layerGroup().addTo(map),storeLayer=L.layerGroup().addTo(map),hotelLayer=L.layerGroup().addTo(map),pokeLayer=L.layerGroup().addTo(map);
  const colors=['#0077b6','#00a896','#f4a261','#e76f51','#7b2cbf','#6a4c93'],markers={stores:new Map(),hotels:new Map(),poke:new Map()},layerGroups={stores:storeLayer,hotels:hotelLayer,poke:pokeLayer,ramen:globalThis.ramenLayer};
  const elevationPanel=document.querySelector('#map-elevation'),elevationContent=document.querySelector('#map-elevation-content'),elevationSummary=document.querySelector('#map-elevation-summary');
