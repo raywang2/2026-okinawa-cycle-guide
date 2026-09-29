@@ -10,14 +10,14 @@
     "sync:mymaps": "tsx scripts/sync-mymaps.ts"
   },
   "dependencies": {
-    "fast-xml-parser": "^5.2.5",
+    "fast-xml-parser": "^5.11.2",
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.20",
-    "@types/node": "^24.0.0",
-    "tsx": "^4.20.3",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.3"
+    "@types/node": "^24.19.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1"
   }
 }
