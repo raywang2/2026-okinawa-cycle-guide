@@ -1,6 +1,49 @@
 export function setupMapFullscreen(map) {
   const stage = document.querySelector('.map-stage');
   const button = document.querySelector('#map-fullscreen');
+  const dateControl = document.querySelector('#day-tabs').closest('.map-control');
+  const datePlaceholder = document.createComment('Date control position in the map panel');
+  dateControl.before(datePlaceholder);
+  const dateToolbar = document.createElement('details');
+  dateToolbar.className = 'map-fullscreen-settings';
+  dateToolbar.hidden = true;
+  const summary = document.createElement('summary');
+  summary.textContent = '地圖設定 · 日期／圖層';
+  const settingsContent = document.createElement('div');
+  settingsContent.className = 'map-fullscreen-settings-content';
+  const layerControls = document.createElement('fieldset');
+  layerControls.className = 'map-fullscreen-layers';
+  layerControls.innerHTML = '<legend>顯示圖層</legend>';
+  const layers = [...document.querySelectorAll('[data-map-layer]')].map(source => {
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    const name = source.closest('.layer-toggle').querySelector('[data-map-panel]').textContent;
+    label.append(input, document.createTextNode(name));
+    layerControls.append(label);
+    input.addEventListener('change', () => {
+      source.checked = input.checked;
+      source.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    source.addEventListener('change', syncSettings);
+    return { source, input, label };
+  });
+  settingsContent.append(layerControls);
+  dateToolbar.append(summary, settingsContent);
+  stage.prepend(dateToolbar);
+  function syncSettings() {
+    const select = dateControl.querySelector('select');
+    summary.textContent = `地圖設定 · ${select?.selectedOptions[0]?.textContent || '日期／圖層'}`;
+    layers.forEach(({ source, input, label }) => {
+      input.checked = source.checked;
+      label.hidden = source.closest('.layer-toggle').hidden;
+    });
+  }
+  dateControl.addEventListener('change', () => {
+    syncSettings();
+    dateToolbar.open = false;
+    summary.focus({ preventScroll: true });
+  });
   let active = false;
   let previousOverflow;
   let background = [];
@@ -12,6 +55,10 @@ export function setupMapFullscreen(map) {
     button.textContent = active ? '⤢ 退出全螢幕' : '⤢ 全螢幕';
     button.setAttribute('aria-pressed', String(active));
     if (active) {
+      settingsContent.prepend(dateControl);
+      dateToolbar.open = false;
+      dateToolbar.hidden = false;
+      syncSettings();
       previousOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       // Keep keyboard focus in the map while preserving existing inert states.
@@ -23,6 +70,8 @@ export function setupMapFullscreen(map) {
         }
       }
     } else {
+      datePlaceholder.after(dateControl);
+      dateToolbar.hidden = true;
       document.body.style.overflow = previousOverflow;
       background.forEach(([element, inert]) => { element.inert = inert; });
       background = [];
