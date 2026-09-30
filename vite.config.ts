@@ -4,6 +4,10 @@ import { createHash } from "node:crypto";
 
 export default defineConfig({
   base: "/2026-okinawa-cycle-guide/",
+  server: {
+    port: 8765,
+    strictPort: true,
+  },
   plugins: [{
     name: "offline-assets",
     generateBundle(_options, bundle) {
