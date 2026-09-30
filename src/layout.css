@@ -231,7 +231,7 @@
   top: calc(60px + env(safe-area-inset-top));
   right: calc(12px + env(safe-area-inset-right));
 }
- .map-fullscreen-settings[hidden] { display: none; }
+.map-fullscreen-settings[hidden] { display: none; }
 .map-fullscreen-settings {
   position: relative;
   z-index: 600;
@@ -251,9 +251,10 @@
 }
 .map-fullscreen-settings-content {
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: min(420px, 100%);
+  /* Leave the zoom column and the location action row available. */
+  top: calc(100% + 68px);
+  left: 56px;
+  width: min(420px, calc(100% - 68px));
   max-height: 45vh;
   max-height: 45dvh;
   overflow: auto;
