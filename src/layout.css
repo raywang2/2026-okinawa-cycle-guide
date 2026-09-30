@@ -56,6 +56,7 @@
   .map-location-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
   .map-location-actions button { min-height: 44px; padding: 7px 12px; border: 1px solid #a7cbd0; border-radius: 8px; background: #fff; color: var(--ink); box-shadow: 0 2px 8px #17363c33; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
   .map-location-actions button:disabled { cursor: wait; opacity: .75; }
+  .map-location-actions button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   #map-location-status { max-width: 260px; margin: 0; padding: 6px 9px; border-radius: 7px; background: #fff; color: var(--ink); box-shadow: 0 2px 8px #17363c33; font-size: 12px; line-height: 1.4; }
   .map-location-control [hidden] { display: none; }
   .map-stage #map, #route:has(.elevation-card) .map-stage #map { height: clamp(520px, 62svh, 760px); border: 0; border-radius: 12px 12px 0 0; }
@@ -192,4 +193,41 @@
 }
 @media print {
   .nav, .hero, .skip-link { display: none; }
+}
+
+/* The viewport layout is also used on browsers without native fullscreen. */
+.map-shell:has(.map-stage.is-fullscreen),
+#route:has(.elevation-card) .map-shell:has(.map-stage.is-fullscreen) {
+  position: relative;
+  z-index: 2000;
+}
+.map-stage.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  border: 0;
+  border-radius: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: var(--card);
+}
+.map-stage.is-fullscreen #map,
+#route:has(.elevation-card) .map-stage.is-fullscreen #map {
+  flex: 1 1 0;
+  min-height: 0;
+  height: 0;
+  border-radius: 0;
+}
+.map-stage.is-fullscreen .map-elevation {
+  flex: 0 0 auto;
+  max-height: 40dvh;
+  overflow: auto;
+}
+.map-stage.is-fullscreen .map-location-control {
+  top: calc(12px + env(safe-area-inset-top));
+  right: calc(12px + env(safe-area-inset-right));
 }
