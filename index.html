@@ -20,15 +20,16 @@
     <span class="nav-caption">你的環島手冊</span>
     <div class="nav-links">
       <a href="#overview"><span aria-hidden="true">01</span>行程總覽</a>
-      <a href="#route"><span aria-hidden="true">02</span>每日路線／地圖</a>
-      <a href="#attractions"><span aria-hidden="true">03</span>景點</a>
-      <a href="#poke"><span aria-hidden="true">04</span>Poké Lids</a>
-      <a href="#pikmin"><span aria-hidden="true">05</span>皮克敏 Mini Walk</a>
-      <a href="#shrines"><span aria-hidden="true">06</span>御朱印巡禮</a>
-      <a href="#ramen"><span aria-hidden="true">07</span>拉麵探索</a>
-      <a href="#stay"><span aria-hidden="true">08</span>住宿資訊</a>
-      <a href="#prep"><span aria-hidden="true">09</span>補給／準備</a>
-      <a href="#certificate"><span aria-hidden="true">10</span>完騎證書</a>
+      <a href="#schedule"><span aria-hidden="true">02</span>行程表</a>
+      <a href="#route"><span aria-hidden="true">03</span>每日路線／地圖</a>
+      <a href="#attractions"><span aria-hidden="true">04</span>景點</a>
+      <a href="#poke"><span aria-hidden="true">05</span>Poké Lids</a>
+      <a href="#pikmin"><span aria-hidden="true">06</span>皮克敏 Mini Walk</a>
+      <a href="#shrines"><span aria-hidden="true">07</span>御朱印巡禮</a>
+      <a href="#ramen"><span aria-hidden="true">08</span>拉麵探索</a>
+      <a href="#stay"><span aria-hidden="true">09</span>住宿資訊</a>
+      <a href="#prep"><span aria-hidden="true">10</span>補給／準備</a>
+      <a href="#certificate"><span aria-hidden="true">11</span>完騎證書</a>
     </div>
     <div class="nav-foot">一圈沖繩，一起完成。<br><span>Kenny · Ray · Ben</span></div>
   </nav>
@@ -40,6 +41,7 @@
   <main id="main-content" tabindex="-1">
     <section id="overview"><div class="wrap"><h2>行程總覽</h2><div class="grid g3"><div class="card"><div class="kpi" id="total-km">— km</div><div class="muted">總里程</div></div><div class="card"><div class="kpi" id="ride-days">—</div><div class="muted">騎乘日數</div></div><div class="card"><div class="kpi">Okinawa</div><div class="muted">單車環島旅行</div></div></div></div></section>
 
+    <section id="schedule"><div class="wrap"><h2>行程表</h2><p class="sub">查看完整行程與安排；手機上可在表格內左右滑動。</p><div class="tools"><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTImTT4jQbJ08gV1MXaEnFXchPW1BHIvmF7JJr8m4BCHNk39IBboC7ABHFddNVcvukg5a_3HfCgRbnj/pubhtml?gid=589464419&amp;single=true&amp;widget=true&amp;headers=false" target="_blank" rel="noopener">另開 Google 試算表 ↗</a></div><iframe class="schedule-sheet" title="沖繩單車環島行程表" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTImTT4jQbJ08gV1MXaEnFXchPW1BHIvmF7JJr8m4BCHNk39IBboC7ABHFddNVcvukg5a_3HfCgRbnj/pubhtml?gid=589464419&amp;single=true&amp;widget=true&amp;headers=false" loading="lazy"></iframe></div></section>
     <section id="route"><div class="map-wrap"><h2>以地圖規劃行程</h2><p class="sub">選擇日期查看單日路線；透過地圖控制區切換休息／補給點、住宿、景點、Poké Lids、皮克敏、御朱印寺社、拉麵店或 10/11 活動管制，並點選項目直接定位到地圖。</p><div class="map-shell"><div class="map-stage"><div id="map"></div><div class="map-location-control"><div class="map-location-actions"><button id="map-fullscreen" type="button" aria-controls="map" aria-pressed="false">⤢ 全螢幕</button><button id="map-locate" type="button">◎ 目前位置</button><button id="map-locate-stop" type="button" hidden>停止顯示</button></div><p id="map-location-status" role="status" hidden></p></div><details id="map-elevation" class="map-elevation"><summary><span>高度／坡度</span><span id="map-elevation-summary"></span></summary><div id="map-elevation-content"></div></details></div><aside class="map-panel"><h3>地圖操作</h3><div class="map-control"><b>騎乘日期</b><div id="day-tabs" class="map-tabs"></div></div><div class="map-control map-layers-control"><b>圖層</b><div id="map-layer-tabs" class="layer-controls"><div class="layer-toggle"><button class="map-choice active" data-map-panel="stores">休息／補給點</button><label aria-label="顯示休息／補給點"><input type="checkbox" data-map-layer="stores" checked></label></div><div class="layer-toggle"><button class="map-choice" data-map-panel="hotels">住宿</button><label aria-label="顯示住宿"><input type="checkbox" data-map-layer="hotels" checked></label></div><div class="layer-toggle"><button class="map-choice" type="button" data-map-panel="attractions">📍 景點</button><label aria-label="顯示景點"><input type="checkbox" data-map-layer="attractions"></label></div><div class="layer-toggle"><button class="map-choice" data-map-panel="poke">Poké Lids</button><label aria-label="顯示 Poké Lids"><input type="checkbox" data-map-layer="poke"></label></div><div class="layer-toggle"><button class="map-choice" type="button" data-map-panel="pikmin">🌱 皮克敏</button><label aria-label="顯示皮克敏活動地點"><input type="checkbox" data-map-layer="pikmin"></label></div><div class="layer-toggle"><button class="map-choice" type="button" data-map-panel="shrines">⛩️ 御朱印</button><label aria-label="顯示御朱印巡禮地點"><input type="checkbox" data-map-layer="shrines"></label></div><div class="layer-toggle ramen-layer-toggle"><button class="map-choice" type="button" data-map-panel="ramen">🍜 拉麵店</button><label aria-label="顯示拉麵店"><input type="checkbox" data-map-layer="ramen" data-ramen-layer></label></div><div class="layer-toggle traffic-layer-toggle"><button class="map-choice" type="button" data-map-panel="traffic">🚧 10/11 管制</button><label aria-label="顯示 10/11 活動管制"><input type="checkbox" data-map-layer="traffic" checked></label></div></div></div><div class="map-list-header"><div id="map-panel-title" class="map-panel-title">休息／補給點</div><a class="map-mymaps" href="https://www.google.com/maps/d/edit?mid=1OctsgV_s5C_SEg3u5LY3jrjZcCwdugk&usp=sharing" target="_blank" rel="noopener">My Maps ↗</a></div><div id="map-point-list" class="map-point-list"></div></aside></div><div id="route-detail" class="card" style="margin-top:14px"></div></div></section>
 
     <section id="attractions"><div class="wrap"><h2>景點</h2><p class="sub">My Maps「總覽」的 19 個地點，包含沿途景點、餐飲、補給與住宿。2026/10/8 更新。</p><div class="tools"><button class="text-button" type="button" disabled data-attraction-overview>查看全部景點</button><a href="https://www.google.com/maps/d/viewer?mid=1OctsgV_s5C_SEg3u5LY3jrjZcCwdugk" target="_blank" rel="noopener">My Maps 總覽 ↗</a></div><div class="attraction-search"><label class="ramen-search-field" for="attraction-query"><span>搜尋景點</span><input id="attraction-query" type="search" placeholder="例如：萬座毛、古宇利、Lawson" autocomplete="off"></label><b id="attraction-count" aria-live="polite"></b></div><div id="attraction-list" class="grid g3"></div><p id="attraction-empty" class="muted" hidden>找不到符合的景點，請換個關鍵字。</p></div></section>
